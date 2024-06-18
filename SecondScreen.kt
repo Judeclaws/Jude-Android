@@ -1,22 +1,27 @@
+@file:Suppress("ktlint:standard:import-ordering")
+
 package com.smartherd.signinscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+// import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardElevation
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,60 +32,74 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Suppress("ktlint:standard:function-naming")
-@Preview
 @Composable
-fun SecondScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier =
+@Preview
+fun SecondScreen() {
+    Scaffold(
+
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Doctor Appointment") },
+                actions = {
+                    IconButton(onClick = { /*TODO*/ },Modifier.background(color = Color.LightGray)) {
+                        Text(text = "Add new", fontFamily = FontFamily.SansSerif, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
+//
+                    }
+                },
+            )
+        },
+    ) { paddingValues ->
+        val scrollState = rememberScrollState()
+        LazyColumn(
+            modifier =
             Modifier
                 .background(color = Color.LightGray)
                 .fillMaxSize()
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .padding(10.dp),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.Start,
-    ) {
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth(),
+                .padding(paddingValues),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.Start,
         ) {
-            Text(text = "New Appointment", fontSize = 28.sp)
+            // Replace repetitive cards with LazyColumn
 
-            Spacer(modifier = Modifier.width(30.dp))
-
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Add New")
+            items(
+                // Provide a list of data for appointments
+                listOf(
+                    "Juggler Scoler",
+                    "Doctor Timekeeper",
+                    "Hairdresser Stylist",
+                    "Juggler Scoler",
+                    "Doctor Timekeeper",
+                    "Hairdresser Stylist",
+                    "Juggler Scoler",
+                    "Doctor Timekeeper",
+                    "Hairdresser Stylist",
+                    "Juggler Scoler",
+                    "Doctor Timekeeper",
+                    "Hairdresser Stylist",
+                ),
+            ) { appointmentName ->
+                AppointmentCard(appointmentName) // Pass appointment name to card
             }
         }
-
-        AppointmentCard()
-        AppointmentCard()
-        AppointmentCard()
-        AppointmentCard()
-        AppointmentCard()
-        AppointmentCard()
     }
 }
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun AppointmentCard(
-    @Suppress("ktlint:standard:function-naming")
+    appointmentName: String,
     modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
-        elevation =
-            CardDefaults
-                .cardElevation(defaultElevation = 16.dp),
-        modifier =
-            Modifier
-                .size(width = 300.dp, height = 100.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
+        modifier = modifier
+            .size(width = 300.dp, height = 100.dp)
+            .padding(8.dp),
     ) {
         Text(
-            text = "Juggler Scoler",
+            text = appointmentName,
             fontWeight = FontWeight.Bold,
             fontSize = 32.sp,
             fontFamily = FontFamily.Serif,
