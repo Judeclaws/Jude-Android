@@ -1,4 +1,4 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports")
+@file:Suppress("ktlint:standard:no-wildcard-imports", "PreviewAnnotationInFunctionWithParameters")
 
 package com.smartherd.signinscreen
 
@@ -24,13 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.smartherd.signinscreen.R.drawable
 
-@Suppress("ktlint:standard:function-naming")
+@Preview
 @Composable
-fun LoginScreen() {
+@Suppress("ktlint:standard:function-naming")
+fun LoginScreen(navController: NavController) {
     var email by remember {
         mutableStateOf("")
     }
@@ -71,6 +74,7 @@ fun LoginScreen() {
 
         Button(onClick = {
             Log.i("Credentials", "Email:$email Password:$password")
+            navController.navigate("Second_Screen")
         }) {
             Text(text = "Login")
         }

@@ -1,11 +1,11 @@
-@file:Suppress("ktlint:standard:import-ordering")
+@file:Suppress("ktlint:standard:import-ordering", "PreviewAnnotationInFunctionWithParameters")
 
 package com.smartherd.signinscreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardElevation
 import androidx.compose.material3.ElevatedCard
@@ -31,19 +30,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("ktlint:standard:function-naming")
 @Composable
-@Preview
-fun SecondScreen() {
+fun SecondScreen(navController: NavController) {
     Scaffold(
-
         topBar = {
             TopAppBar(
                 title = { Text(text = "Doctor Appointment") },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ },Modifier.background(color = Color.LightGray)) {
+                    IconButton(onClick = { /*TODO*/ }, Modifier.background(color = Color.LightGray)) {
                         Text(text = "Add new", fontFamily = FontFamily.SansSerif, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
 //
                     }
@@ -54,10 +52,10 @@ fun SecondScreen() {
         val scrollState = rememberScrollState()
         LazyColumn(
             modifier =
-            Modifier
-                .background(color = Color.LightGray)
-                .fillMaxSize()
-                .padding(paddingValues),
+                Modifier
+                    .background(color = Color.LightGray)
+                    .fillMaxSize()
+                    .padding(paddingValues),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.Start,
         ) {
@@ -86,6 +84,7 @@ fun SecondScreen() {
     }
 }
 
+@Preview
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun AppointmentCard(
@@ -94,9 +93,11 @@ fun AppointmentCard(
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
-        modifier = modifier
-            .size(width = 300.dp, height = 100.dp)
-            .padding(8.dp),
+        modifier =
+            modifier
+                .size(width = 300.dp, height = 100.dp)
+                .padding(8.dp)
+                .clickable { },
     ) {
         Text(
             text = appointmentName,
